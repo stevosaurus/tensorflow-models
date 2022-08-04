@@ -1015,7 +1015,7 @@ def eager_eval_loop(
   tf.logging.info('Eval metrics at step %d', global_step.numpy())
   for k in eval_metrics:
     tf.compat.v2.summary.scalar(k, eval_metrics[k], step=global_step)
-    mlflow.log_metric(k.replace("@", "").replace("(", "").replace(")", ""), eval_metrics[k], step=global_step.numpy())
+    mlflow.log_metric(k.replace("@", "").replace("(", "").replace(")", ""), eval_metrics[k].numpy(), step=global_step.numpy())
     tf.logging.info('\t+ %s: %f', k, eval_metrics[k])
   return eval_metrics
 
