@@ -37,7 +37,7 @@ from object_detection.utils import label_map_util
 from object_detection.utils import ops
 from object_detection.utils import variables_helper
 from object_detection.utils import visualization_utils as vutils
-
+import mlflow
 
 MODEL_BUILD_UTIL_MAP = model_lib.MODEL_BUILD_UTIL_MAP
 NUM_STEPS_PER_ITERATION = 100
@@ -1015,6 +1015,7 @@ def eager_eval_loop(
   tf.logging.info('Eval metrics at step %d', global_step.numpy())
   for k in eval_metrics:
     tf.compat.v2.summary.scalar(k, eval_metrics[k], step=global_step)
+    mlflow.log_metric(k, eval_metrics[k], step=global_step)
     tf.logging.info('\t+ %s: %f', k, eval_metrics[k])
   return eval_metrics
 
