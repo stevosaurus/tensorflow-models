@@ -691,7 +691,7 @@ def train_loop(
           tf.compat.v2.summary.scalar(
               'steps_per_sec', steps_per_sec, step=global_step)
         
-          mlflow.log_metric('steps_per_sec', steps_per_sec, step=global_step.numpy())
+          mlflow.log_metric('steps_per_sec', steps_per_sec, step=global_step.value())
 
           steps_per_sec_list.append(steps_per_sec)
 
@@ -700,10 +700,10 @@ def train_loop(
 
           for key, val in logged_dict.items():
             tf.compat.v2.summary.scalar(key, val, step=global_step)
-            if tf.is_tensor(val):
-                mlflow.log_metric(key.replace("@", "").replace("(", "").replace(")", ""), val.numpy(), step=global_step.numpy())
-            else:
-                mlflow.log_metric(key.replace("@", "").replace("(", "").replace(")", ""), val, step=global_step.numpy())
+            #if tf.is_tensor(val):
+            #    mlflow.log_metric(key.replace("@", "").replace("(", "").replace(")", ""), val.numpy(), step=global_step.numpy())
+            #else:
+            #    mlflow.log_metric(key.replace("@", "").replace("(", "").replace(")", ""), val, step=global_step.numpy())
 
           if global_step.value() - logged_step >= LOG_EVERY:
             logged_dict_np = {name: value.numpy() for name, value in
