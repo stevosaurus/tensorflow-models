@@ -691,7 +691,7 @@ def train_loop(
           tf.compat.v2.summary.scalar(
               'steps_per_sec', steps_per_sec, step=global_step)
         
-          mlflow.log_metric('steps_per_sec', steps_per_sec, step=global_step.value())
+          #mlflow.log_metric('steps_per_sec', steps_per_sec, step=global_step.value())
 
           steps_per_sec_list.append(steps_per_sec)
 
